@@ -3,6 +3,7 @@ package com.example.opengl
 import android.opengl.GLSurfaceView
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.DisplayMetrics
 import com.example.opengl.opengl_render.MyGLSurfaceView
 
 class MainActivity : AppCompatActivity() {
@@ -14,5 +15,6 @@ class MainActivity : AppCompatActivity() {
 
         gLView = MyGLSurfaceView(this)
         setContentView(gLView)
+
     }
 }

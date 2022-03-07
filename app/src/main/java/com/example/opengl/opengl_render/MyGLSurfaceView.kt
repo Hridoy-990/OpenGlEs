@@ -1,10 +1,15 @@
 package com.example.opengl.opengl_render
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.opengl.GLSurfaceView
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.MotionEvent
+import android.view.Window
+import com.example.opengl.MainActivity
+
 
 /**
  * @author Md Jahirul Islam Hridoy
@@ -59,7 +64,7 @@ class MyGLSurfaceView (context: Context) : GLSurfaceView(context) {
                 if (x < width / 2) {
                     dy *= -1
                 }
-                Log.e(TAG, "onTouchEvent: dX => $dx dy => $dy   x = $x y = $y   prevX = $previousX prevY = $previousY")
+
                 renderer.angle += (dx + dy) * TOUCH_SCALE_FACTOR
                 requestRender()
             }
