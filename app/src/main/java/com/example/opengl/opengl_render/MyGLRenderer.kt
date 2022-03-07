@@ -4,6 +4,7 @@ package com.example.opengl.opengl_render
 import android.opengl.GLES20
 import android.opengl.GLSurfaceView
 import android.opengl.Matrix
+import com.example.opengl.shape.Square
 import com.example.opengl.shape.Triangle
 import javax.microedition.khronos.opengles.GL10
 
@@ -14,6 +15,7 @@ import javax.microedition.khronos.opengles.GL10
 class MyGLRenderer : GLSurfaceView.Renderer {
 
     private lateinit var mTriangle: Triangle
+    private lateinit var mSquare: Square
     // vPMatrix is an abbreviation for "Model View Projection Matrix"
     private val vPMatrix = FloatArray(16)
     private val projectionMatrix = FloatArray(16)
@@ -42,14 +44,18 @@ class MyGLRenderer : GLSurfaceView.Renderer {
         // for the matrix multiplication product to be correct.
         Matrix.multiplyMM(scratch, 0, vPMatrix, 0, rotationMatrix, 0)
 
-        mTriangle.draw(scratch)
+       // mTriangle.draw(scratch)
+
+        mSquare.draw(scratch)
 
     }
 
     override fun onSurfaceCreated(p0: GL10?, p1: javax.microedition.khronos.egl.EGLConfig?) {
         // Set the background frame color
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f)
+
         mTriangle = Triangle()
+        mSquare = Square()
     }
 
     override fun onSurfaceChanged(unused: GL10, width: Int, height: Int) {
