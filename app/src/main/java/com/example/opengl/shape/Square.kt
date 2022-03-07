@@ -22,7 +22,10 @@ var squareCoords = floatArrayOf(
 class Square {
 
     private val drawOrder = shortArrayOf(0, 1, 2, 0, 2, 3) // order to draw vertices
-    val color = floatArrayOf(0.63671875f, 0.76953125f, 0.22265625f, 1.0f)
+    private val colors = arrayOf(
+        floatArrayOf(1.0f, 0f, 0.0f, 1.0f),
+        floatArrayOf(0f, 1.0f, 0.0f, 1.0f)
+    )
     private var positionHandle: Int = 0
     private var mColorHandle: Int = 0
 
@@ -133,16 +136,20 @@ class Square {
             )
 
             // get handle to fragment shader's vColor member
-            mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor").also { colorHandle ->
+            mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor")
 
+            for(i  in 0 until 2) {
                 // Set color for drawing the triangle
-                GLES20.glUniform4fv(colorHandle, 1, color, 0)
+                GLES20.glUniform4fv( mColorHandle, 1, colors[i], 0)
+                drawListBuffer.position(i * 3)
+                // Draw the square
+                GLES20.glDrawElements(GLES20.GL_TRIANGLES, 3,
+                    GLES20.GL_UNSIGNED_SHORT, drawListBuffer)
+
             }
 
 
-            // Draw the square
-            GLES20.glDrawElements(GLES20.GL_TRIANGLES, drawOrder.size,
-                GLES20.GL_UNSIGNED_SHORT, drawListBuffer)
+
 
             // Disable vertex array
             GLES20.glDisableVertexAttribArray(it)
